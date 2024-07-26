@@ -5,6 +5,7 @@ import About from "./pages/About";
 import styled from "styled-components";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
+import Topbtn from "./components/Topbtn";
 
 const RelativeContainer = styled.div`
   display: block;
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
         </Routes>
+        <Topbtn></Topbtn>
       </RelativeContainer>
       <Footer></Footer>
     </>

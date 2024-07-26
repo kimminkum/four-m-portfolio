@@ -13,15 +13,20 @@ const TopBtn = styled.div<{ bottom: number }>`
   background-color: #ddd;
   z-index: 8;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const Topbtn: React.FC = () => {
   // isVisible 대신 bottom 값을 상태로 관리합니다.
   const [bottom, setBottom] = useState(30); // 기본값은 30px
 
+  const handleClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      const footerHeight = 800; // 푸터의 높이
+      const footerHeight = 700; // 푸터의 높이
       const scrollHeight = document.body.scrollHeight;
       const viewportHeight = window.innerHeight;
       const currentScrollPosition = window.scrollY;
@@ -43,7 +48,7 @@ const Topbtn: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return <>{<TopBtn bottom={bottom}></TopBtn>}</>;
+  return <>{<TopBtn bottom={bottom} onClick={handleClick}></TopBtn>}</>;
 };
 
 export default Topbtn;
