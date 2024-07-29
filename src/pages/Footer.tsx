@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useGlobalContext } from "../query/GlobalContext";
+import Btn from "../components/Button";
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.div<{ height: number }>`
   width: 100%;
-  height: 700px;
+  height: ${(props) => props.height}px;
   background-color: #333;
   color: #fff;
 `;
@@ -15,11 +17,41 @@ const FooterIner = styled.div`
   margin: 0 auto;
 `;
 
+const BtnBox = styled.div`
+  width: 200px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 30;
+`;
+
 const Footer: React.FC = () => {
+  const { footerHeight, setFooterHeight } = useGlobalContext();
+
+  const increaseHeight = () => {
+    setFooterHeight(footerHeight + 100);
+  };
+
+  const decreaseHeight = () => {
+    setFooterHeight(footerHeight - 100);
+  };
+
   return (
     <>
-      <FooterContainer>
-        <FooterIner>Footer Page</FooterIner>
+      <FooterContainer height={footerHeight}>
+        <FooterIner>
+          Footer Page
+          <BtnBox>
+            <Btn onClick={increaseHeight} height={36}>
+              증가 100
+            </Btn>
+          </BtnBox>
+          <BtnBox>
+            <Btn onClick={decreaseHeight} height={36}>
+              감소 100
+            </Btn>
+          </BtnBox>
+        </FooterIner>
       </FooterContainer>
     </>
   );

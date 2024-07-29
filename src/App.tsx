@@ -6,17 +6,18 @@ import styled from "styled-components";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import Topbtn from "./components/Topbtn";
+import { GlobalProvider } from "./query/GlobalContext";
 
 const RelativeContainer = styled.div`
   display: block;
   position: relative;
-  height: 100vh;
+  height: auto;
   overflow: auto;
 `;
 
 const App: React.FC = () => {
   return (
-    <>
+    <GlobalProvider>
       <Header></Header>
       <RelativeContainer>
         <Routes>
@@ -26,7 +27,7 @@ const App: React.FC = () => {
         <Topbtn></Topbtn>
       </RelativeContainer>
       <Footer></Footer>
-    </>
+    </GlobalProvider>
   );
 };
 

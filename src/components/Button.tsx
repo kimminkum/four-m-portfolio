@@ -51,6 +51,7 @@ const ButtonOverlay = styled.span`
 `;
 
 const Btn = styled.button<{ height?: number; type?: string }>`
+  position: relative;
   width: 100%;
   border: none; /* border를 없앰 */
   height: ${(props) => (props.height ? `${props.height}px` : "24px")};

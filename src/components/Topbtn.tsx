@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useGlobalContext } from "../query/GlobalContext";
 
 // bottom 값을 동적으로 조정하기 위해 props를 추가합니다.
 const TopBtn = styled.div<{ bottom: number }>`
@@ -19,6 +20,7 @@ const TopBtn = styled.div<{ bottom: number }>`
 const Topbtn: React.FC = () => {
   // isVisible 대신 bottom 값을 상태로 관리합니다.
   const [bottom, setBottom] = useState(30); // 기본값은 30px
+  const { footerHeight } = useGlobalContext();
 
   const handleClick = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -26,7 +28,6 @@ const Topbtn: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const footerHeight = 700; // 푸터의 높이
       const scrollHeight = document.body.scrollHeight;
       const viewportHeight = window.innerHeight;
       const currentScrollPosition = window.scrollY;
@@ -46,7 +47,7 @@ const Topbtn: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [footerHeight]);
 
   return <>{<TopBtn bottom={bottom} onClick={handleClick}></TopBtn>}</>;
 };
