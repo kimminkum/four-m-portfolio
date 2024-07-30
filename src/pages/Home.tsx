@@ -6,6 +6,10 @@ import Scroll from "../components/Scroll";
 import Timer from "../components/Timer";
 import Tabs from "../components/Tabs";
 import Modal from "../components/Modal";
+import From from "../components/From";
+import Swiperbasic from "../components/Swiperbasic";
+import { SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const BtnBox = styled.div`
   width: 60px;
@@ -29,6 +33,11 @@ const ScrollBox = styled.div`
   display: block;
 `;
 
+const SwiperSlide2 = styled.div`
+  width: 100%;
+  height: 300px;
+`;
+
 const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -47,6 +56,15 @@ const Home: React.FC = () => {
   return (
     <Container>
       <div>
+        <Tabs TabsBtn={["a", "x", "b"]} />
+      </div>
+      <Carousel
+        carouselImg="//img.lfmall.co.kr/file/WAS/display/Planning/95905/w_carousel.jpg"
+        carouselHeight={3.34}
+        carouselWidth={-154.1667}
+      />
+
+      <div>
         <Timer
           dday="2024-08-09T10:20:01"
           Ds={["days", "hours", "minutes", "seconds"]}
@@ -64,13 +82,27 @@ const Home: React.FC = () => {
         )}
       </div>
       <div>
-        <Tabs TabsBtn={["a", "x", "b"]} />
+        <From></From>
       </div>
-      <Carousel
-        carouselImg="//img.lfmall.co.kr/file/WAS/display/Planning/95905/w_carousel.jpg"
-        carouselHeight={3.34}
-        carouselWidth={-154.1667}
-      />
+      <Swiperbasic
+        spaceBetween={20}
+        autoplayDelay={3000}
+        slidesPerView={2}
+        indicator={true}
+        paginationType="fraction"
+        showNavigation={true}
+        additionalModules={[]}
+      >
+        <SwiperSlide>
+          <SwiperSlide2> Slide 1 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SwiperSlide2> Slide 2 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SwiperSlide2> Slide 3 </SwiperSlide2>
+        </SwiperSlide>
+      </Swiperbasic>
       <BtnBox>
         <Button onClick={handleClick} type="button" className="mack">
           hello

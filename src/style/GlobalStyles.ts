@@ -38,6 +38,57 @@ const GlobalStyle = createGlobalStyle`
     letter-spacing: -0.02em;
     overflow: hidden;
   }
+  .swiper{
+    overflow: visible;
+  }
+  .swiper-pagination {
+    position: relative;
+    margin-top: 10px;
+  }
+
+  .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      width: 16px;
+      height: 16px;
+      transform: rotate(-45deg);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+    }
+  }
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: rotate(135deg);
+      width: 16px;
+      height: 16px;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+    }
+  }
+  
 
   img {
     width: 100%;

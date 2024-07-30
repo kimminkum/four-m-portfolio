@@ -1,15 +1,80 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, Autoplay } from "swiper/modules";
+import styled from "styled-components";
 
-import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
-const Swiperbasic: React.FC = () => {
-  return <div>Swiperbasic Page</div>;
+const SwiperContainer = styled.div<{ hasPagination: boolean }>`
+  width: 100%;
+  height: 100%;
+  padding-bottom: ${(props) => (props.hasPagination ? "8%" : "0")};
+`;
+
+type SwiperbasicProps = {
+  children: React.ReactNode;
+  spaceBetween?: number;
+  slidesPerView?: number;
+  autoplayDelay?: number;
+  indicator?: boolean;
+  paginationType?: "bullets" | "fraction" | "progressbar" | "custom" | null;
+  showNavigation?: boolean;
+  additionalModules?: any[];
+};
+
+const Swiperbasic: React.FC<SwiperbasicProps> = ({
+  children,
+  spaceBetween = 10,
+  autoplayDelay = 4000,
+  slidesPerView = 1,
+  indicator = true,
+  paginationType = "bullets",
+  showNavigation = true,
+  additionalModules = [],
+}) => {
+  const modules = useMemo(() => {
+    const baseModules = [Pagination, Scrollbar, Autoplay, ...additionalModules];
+    if (showNavigation) {
+      baseModules.push(Navigation);
+    }
+    return baseModules;
+  }, [showNavigation, additionalModules]);
+
+  const settings = useMemo(
+    () => ({
+      spaceBetween,
+      slidesPerView,
+      autoplay: {
+        delay: autoplayDelay,
+      },
+      pagination:
+        indicator && paginationType
+          ? {
+              clickable: true,
+              type: paginationType,
+            }
+          : false,
+      navigation: showNavigation,
+      modules,
+    }),
+    [
+      spaceBetween,
+      autoplayDelay,
+      indicator,
+      paginationType,
+      showNavigation,
+      modules,
+    ]
+  );
+
+  return (
+    <SwiperContainer hasPagination={indicator && !!paginationType}>
+      <Swiper {...settings}>{children}</Swiper>
+    </SwiperContainer>
+  );
 };
 
 export default Swiperbasic;

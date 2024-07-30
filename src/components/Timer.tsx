@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const TimerContainer = styled.div`
   width: 100%;
-  padding: 40px 0;
+  padding: 20px 0;
   background-color: #646464;
 `;
 

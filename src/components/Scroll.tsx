@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const OpenScroll = styled.div`
   width: 100% !important;
-  height: 100vh;
+  height: min(100vh, 100%);
   overflow: hidden;
   position: relative;
   object-fit: cover;
