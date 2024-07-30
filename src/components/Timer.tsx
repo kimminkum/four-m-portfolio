@@ -1,4 +1,42 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const TimerContainer = styled.div`
+  width: 100%;
+  padding: 40px 0;
+  background-color: #646464;
+`;
+
+const TimerBox = styled.ul`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 554px;
+  color: white;
+`;
+
+const Circle = styled.li`
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background: #161616;
+  align-items: center;
+  font-size: min(30px, calc(18 / 750 * 100vw));
+  padding: 0 10px;
+`;
+
+const Box = styled.li`
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background: #161616;
+  align-items: center;
+  font-size: min(30px, calc(18 / 750 * 100vw));
+  padding: 0 10px;
+`;
 
 interface TimerProps {
   dday: string;
@@ -50,12 +88,14 @@ const Timer: React.FC<TimerProps> = ({ dday, Ds }) => {
   }, [dday, Ds]);
 
   return (
-    <div>
-      {Ds.includes("days") && <span>{timeLeft.days}일 </span>}
-      {Ds.includes("hours") && <span>{timeLeft.hours}시간 </span>}
-      {Ds.includes("minutes") && <span>{timeLeft.minutes}분 </span>}
-      {Ds.includes("seconds") && <span>{timeLeft.seconds}초 </span>}
-    </div>
+    <TimerContainer>
+      <TimerBox>
+        {Ds.includes("days") && <Circle>{timeLeft.days}</Circle>}
+        {Ds.includes("hours") && <Box>{timeLeft.hours} </Box>}
+        {Ds.includes("minutes") && <Circle>{timeLeft.minutes} </Circle>}
+        {Ds.includes("seconds") && <Box>{timeLeft.seconds} </Box>}
+      </TimerBox>
+    </TimerContainer>
   );
 };
 

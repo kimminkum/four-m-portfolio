@@ -1,44 +1,41 @@
 import React, { useState } from "react";
 
-type Tab = "profile" | "settings" | "notifications";
+interface TabsProps {
+  TabsBtn: string[];
+}
 
-const Tabs: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>("profile");
+const Tabs: React.FC<TabsProps> = ({ TabsBtn }) => {
+  const [activeTab, setActiveTab] = useState<string>(TabsBtn[0]);
 
   const renderContent = () => {
     switch (activeTab) {
-      case "profile":
-        return <div>프로필 내용</div>;
-      case "settings":
-        return <div>설정 내용</div>;
-      case "notifications":
-        return <div>알림 내용</div>;
+      case "a":
+        return <div>Content for A</div>;
+      case "b":
+        return <div>Content for B</div>;
+      case "c":
+        return <div>Content for C</div>;
+      case "d":
+        return <div>Content for D</div>;
+      case "x":
+        return <div>Content for X</div>;
       default:
-        return null;
+        return <div>Default Content</div>;
     }
   };
 
   return (
     <div>
-      <div className="tabs">
-        <button
-          onClick={() => setActiveTab("profile")}
-          className={activeTab === "profile" ? "active" : ""}
-        >
-          프로필
-        </button>
-        <button
-          onClick={() => setActiveTab("settings")}
-          className={activeTab === "settings" ? "active" : ""}
-        >
-          설정
-        </button>
-        <button
-          onClick={() => setActiveTab("notifications")}
-          className={activeTab === "notifications" ? "active" : ""}
-        >
-          알림
-        </button>
+      <div className="tab-buttons">
+        {TabsBtn.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={activeTab === tab ? "active" : ""}
+          >
+            {tab.toUpperCase()}
+          </button>
+        ))}
       </div>
       <div className="tab-content">{renderContent()}</div>
     </div>

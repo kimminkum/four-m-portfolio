@@ -10,7 +10,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Pretendard', 'AppleSDGothicNeoR00' ,'Apple SD Gothic' ,sans-serif;
   }
-  
+  body.modal-open {
+    overflow: hidden;
+  }
   a {
       text-decoration: none;
       color: inherit;

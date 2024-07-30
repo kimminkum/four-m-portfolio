@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "../components/Carousel";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Scroll from "../components/Scroll";
 import Timer from "../components/Timer";
+import Tabs from "../components/Tabs";
+import Modal from "../components/Modal";
 
 const BtnBox = styled.div`
   width: 60px;
@@ -28,18 +30,41 @@ const ScrollBox = styled.div`
 `;
 
 const Home: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleClick = () => {
     console.log("hello World!");
   };
+
   return (
     <Container>
       <div>
-        <h1>타이머 예시</h1>
         <Timer
           dday="2024-08-09T10:20:01"
           Ds={["days", "hours", "minutes", "seconds"]}
         />
         <Timer dday="2024-10-09T10:10:10" Ds={["hours", "minutes"]} />
+      </div>
+      <div>
+        <button onClick={openModal}>Open Modal</button>
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <h2>Modal Title</h2>
+            <p>This is the modal content.</p>
+            <button onClick={closeModal}>Close</button>
+          </Modal>
+        )}
+      </div>
+      <div>
+        <Tabs TabsBtn={["a", "x", "b"]} />
       </div>
       <Carousel
         carouselImg="//img.lfmall.co.kr/file/WAS/display/Planning/95905/w_carousel.jpg"

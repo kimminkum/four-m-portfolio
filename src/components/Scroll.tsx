@@ -3,8 +3,10 @@ import styled from "styled-components";
 
 const OpenScroll = styled.div`
   width: 100% !important;
+  height: 100vh;
   overflow: hidden;
   position: relative;
+  object-fit: cover;
   transform: translate3d(0, 0, 0);
 
   &::before,
@@ -21,13 +23,13 @@ const OpenScroll = styled.div`
   &::after {
     right: 0;
     transform: translateX(var(--scroll-open-bg-after, 0));
-    transition: transform 0.5s ease; /* Increase the transition duration */
+    transition: transform 0.1s ease; /* Increase the transition duration */
   }
 
   &::before {
     left: 0;
     transform: translateX(var(--scroll-open-bg-before, 0));
-    transition: transform 0.5s ease; /* Increase the transition duration */
+    transition: transform 0.1s ease; /* Increase the transition duration */
   }
 `;
 
