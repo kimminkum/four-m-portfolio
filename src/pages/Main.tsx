@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Main: React.FC = () => {
-  return <div>Main Page</div>;
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
+  return <div data-aos="fade-up">Main Page</div>;
 };
 
 export default Main;
