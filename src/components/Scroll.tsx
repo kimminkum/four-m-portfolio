@@ -33,7 +33,11 @@ const OpenScroll = styled.div`
   }
 `;
 
-const Scroll: React.FC = () => {
+type ScrollProps = {
+  children: React.ReactNode;
+};
+
+const Scroll: React.FC<ScrollProps> = ({ children }) => {
   useEffect(() => {
     const scrollOpenElements = document.querySelectorAll(".scroll-open");
 
@@ -66,13 +70,7 @@ const Scroll: React.FC = () => {
     <>
       <div className="ctns" data-io="fade-in">
         <div className="fix">
-          <OpenScroll className="scroll-open">
-            <img
-              alt="SUNNY"
-              src="//img.lfmall.co.kr/file/WAS/display/Planning/94860/w_open_01.jpg"
-              className="full-image"
-            />
-          </OpenScroll>
+          <OpenScroll className="scroll-open">{children}</OpenScroll>
         </div>
       </div>
     </>

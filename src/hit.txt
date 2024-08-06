@@ -1,0 +1,426 @@
+//html
+<div class="select-wrap" id="customSelectbox1">
+  <!-- select box (진짜 요소) / 옵션태그의 value 값 기입-->
+  <select class="sel" name="정의">
+    <option class="sel-option" value="" disabled selected>선택(필수)</option>
+    <option class="sel-option" value="0">옵션1</option>
+    <option class="sel-option" value="1">옵션2</option>
+  </select>
+
+	<!-- select box custom (가짜 요소 / JS를 통해 출력됨) -->
+	<!-- <div class="select-box">
+		<button type="button" class="sel-label">선택(필수)</button>
+		<div class="option-list-wrap">
+		  <ul class="option-list" role="select">
+			  <li tabindex="0" class="option-item" aria-disabled="true" role="option" data-is-placeholder="true" aria-selected="false">상품(필수)</li>
+			  <li tabindex="0" class="option-item" role="option" data-value="0" aria-selected="true">옵션1</li>
+			  <li tabindex="0" class="option-item" role="option" data-value="1">옵션2</li>
+		  </ul>
+		</div>
+	</div> -->
+</div>
+
+//css
+.select-wrap {
+    position: relative;
+    max-width: 540px;
+    width: 100%;
+    
+    .sel-label {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      box-sizing: border-box;
+      position: relative;
+      width: 100%;
+      height: 48px;
+      background-image: url(../화살표.png);
+      background-position: center right 15px;
+      background-repeat: no-repeat;
+      background-size: 10px auto;
+      color: #000;
+      font-size: 16px;
+      font-weight: 400;
+      vertical-align: middle;
+    } 
+    
+    .option-list-wrap {
+      overflow: auto;
+      position: absolute;
+      top: calc(100% - 1px);
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      max-height: 0;
+      padding: 0;
+      border: 1px solid #ccc;
+      border-top: 0 solid #ccc;
+      background: #fff;
+      color: #000;
+      transition: border-color 0.3s;
+      list-style-type: none;
+      box-sizing: border-box;
+    }
+    
+    .option-item {
+      display: flex;
+      height: 48px;
+      padding: 0 24px;
+      transition: 0.1s;
+      align-items: center;
+      
+      &[tabindex="0"] {
+          cursor: pointer;
+      }
+      
+      &[aria-disabled=true] {
+        display: none;
+      }
+      
+      &:first-child:not([aria-disabled=true]) {
+        color: #999;
+        cursor: unset;
+      }
+      
+      &:hover {
+        background: #f2f6fb;
+      }
+    }
+  }
+  
+  /*-- active, hover, focus --*/
+  .select-wrap.is-active .select-box {
+    background-image: url(../화살표_active.png);
+  }
+  
+  
+  .select-wrap .sel-label.is-active {
+    color: #000;
+  }
+  
+  .select-box .sel-label:hover,
+  .select-wrap.is-active .sel-label {
+      border: 1px solid #000;
+  }
+  
+  .select-wrap.is-active .option-list-wrap {
+    border-top: 1px solid #ccc;
+    max-height: 200px;
+  }
+  
+  .select-box .sel-label:hover + .option-list-wrap,
+  .select-wrap.is-active .option-list-wrap {
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+  }
+  
+//js코드
+const Selectbox = (function () {
+    const utils = {
+      isElement: (x) => x instanceof HTMLElement,
+      hasClass: (el, className) => el ? el.classList.contains(className) : false,
+      addClass: (el, className) => el && el.classList.add(className),
+      removeClass: (el, className) => el && el.classList.remove(className)
+    };
+  
+    const defaults = {
+      rootSelector: ".select-wrap",
+      selectSelector: ".sel",
+      optionSelector: ".sel-option",
+      newRootClassName: "select-box",
+      newListWrapperClassName: "option-list-wrap",
+      newListClassName: "option-list",
+      newItemClassName: "option-item",
+      newToggleClassName: "sel-label",
+      activeClass: "is-active",
+      placeholder: true,
+      searchable: false,
+      searchDefaultText: `검색`,
+      searchInputClassName: "input",
+      duration: 600,
+      callback: {
+        onChange: () => {},
+        onInputFocus: () => {},
+      },
+    };
+  
+    const activeSelectboxList = [];
+  
+    const createInstance = (root, params = {}) => {
+      const config = {
+        options: { ...defaults, ...params },
+        setOptions: (newOptions) => Object.assign(config.options, newOptions)
+      };
+  
+      const dom = {
+        elements: {},
+        initElements() {
+          this.elements = {
+            root,
+            selectbox: root.querySelector("select"),
+            selectOptions: root.querySelectorAll(config.options.optionSelector),
+          };
+          this.elements.selectbox.style.display = "none";
+        }
+      };
+  
+      const stateManager = {
+        state: {
+          selectedIndex: null,
+        },
+        updateSelectedIndex(index) {
+          this.state.selectedIndex = index;
+        }
+      };
+  
+      const uiManager = {
+        render() {
+          const { selectOptions } = dom.elements;
+          const {
+            newRootClassName,
+            newListClassName,
+            newItemClassName,
+            newToggleClassName,
+            newListWrapperClassName,
+            searchInputClassName,
+            searchable,
+          } = config.options;
+  
+          const html = [
+            `<div class="${newRootClassName}">`,
+            ...Array.from(selectOptions).map((selectOption, index) => 
+              selectOption.selected 
+                ? (stateManager.updateSelectedIndex(index), this.placeholderToHtml(selectOption, index))
+                : ''
+            ),
+            `<div class="${newListWrapperClassName}">`,
+            searchable ? this.searchToHtml() : '',
+            `<ul class="${newListClassName}" role="select">`,
+            ...Array.from(selectOptions).map((selectOption, index) => 
+              this.optionToHtml(selectOption, index)
+            ),
+            `</ul></div></div>`
+          ].join('');
+  
+          dom.elements.root.insertAdjacentHTML("beforeend", html);
+  
+          this.initNewElements();
+          this.bindEvents();
+        },
+  
+        initNewElements() {
+          const { root } = dom.elements;
+          const { newRootClassName, newListClassName, newItemClassName, newToggleClassName, searchInputClassName } = config.options;
+  
+          Object.assign(dom.elements, {
+            newSelectbox: root.querySelector(`.${newRootClassName}`),
+            newSelectboxList: root.querySelector(`.${newListClassName}`),
+            newSelectOptions: root.querySelectorAll(`.${newItemClassName}`),
+            newToggleButton: root.querySelector(`.${newToggleClassName}`),
+            newSearchInput: root.querySelector(`.${searchInputClassName.split(" ")[0]}`),
+          });
+        },
+  
+        bindEvents() {
+          const { newToggleButton, newSelectOptions, newSearchInput } = dom.elements;
+          const { callback, searchable } = config.options;
+  
+          newToggleButton.addEventListener("click", eventHandler.clickHandler);
+          newSelectOptions.forEach((item, index) => {
+            item.addEventListener("keydown", (e) => eventHandler.itemKeydownHandler(e, index));
+            item.addEventListener("click", (e) => eventHandler.itemClickHandler(e, index));
+          });
+  
+          newSelectOptions[stateManager.state.selectedIndex].setAttribute("aria-selected", true);
+  
+          if (searchable) {
+            newSearchInput.addEventListener("input", eventHandler.onSearchChanged);
+          }
+  
+          newSearchInput?.addEventListener("focus", callback?.onInputFocus);
+        },
+  
+        placeholderToHtml: (option, index) => 
+          `<button type="button" class="${config.options.newToggleClassName}">${option.text}</button>`,
+  
+        optionToHtml: (option, index) => {
+          const isPlaceholder = index === 0 && config.options.placeholder && option.value === "";
+          const disabled = option.disabled ? `aria-disabled="true"` : ``;
+          const addattribute = option.value ? ` data-value="${option.value}"` : "";
+  
+          return `<li tabindex="0" class="${config.options.newItemClassName}" ${disabled} role="option" ${addattribute} ${isPlaceholder ? `data-is-placeholder="true"` : ``}>${option.text}</li>`;
+        },
+  
+        searchToHtml: () => 
+          `<div class="option-search"><input type="text" class="${config.options.searchInputClassName}" placeholder="${config.options.searchDefaultText || ""}"></div>`,
+  
+        updateSelection(index) {
+          const { newSelectOptions, selectOptions } = dom.elements;
+          const { callback, activeClass } = config.options;
+  
+          if (stateManager.state.selectedIndex !== null) {
+            newSelectOptions[stateManager.state.selectedIndex].setAttribute("aria-selected", false);
+          }
+  
+          selectOptions[index].selected = true;
+          newSelectOptions[index].setAttribute("aria-selected", true);
+          stateManager.updateSelectedIndex(index);
+  
+          this.updateToggleButton(index);
+  
+          if (callback?.onChange) {
+            callback.onChange(index, selectOptions[index].value);
+          }
+        },
+  
+        updateToggleButton(index) {
+          const { newToggleButton, newSelectOptions } = dom.elements;
+          const { activeClass } = config.options;
+  
+          newToggleButton.innerHTML = newSelectOptions[index].innerHTML;
+          newToggleButton.classList.add(activeClass);
+        }
+      };
+  
+      const eventHandler = {
+        clickHandler: (e) => {
+          if (e.target.classList.contains("intxt-search")) return;
+          
+          if (!dom.elements.root.classList.contains(config.options.activeClass)) {
+            publicAPI.open();
+          } else {
+            publicAPI.close();
+          }
+        },
+  
+        changeHandler: (e) => {
+          publicAPI.select(e.target.selectedIndex);
+        },
+  
+        itemClickHandler: (e, index) => {
+          publicAPI.select(index);
+          publicAPI.close();
+        },
+  
+        itemKeydownHandler: (e, index) => {
+          if (e.target.tagName !== "button" && e.target.tagName !== "a" && e.keyCode === 13) {
+            publicAPI.select(index);
+            publicAPI.close();
+          }
+        },
+  
+        onSearchChanged: (e) => {
+          let text = e.target.value.toLowerCase();
+          const { newSelectOptions } = dom.elements;
+          const open = utils.hasClass(dom.elements.root, "is-active");
+  
+          if (text === "") {
+            newSelectOptions.forEach(item => item.style.display = "");
+          } else if (open) {
+            const matchReg = new RegExp(text);
+            newSelectOptions.forEach(item => {
+              const optionText = item.innerText.toLowerCase();
+              item.style.display = matchReg.test(optionText) ? "" : "none";
+            });
+          }
+        }
+      };
+  
+      const publicAPI = {
+        init() {
+          dom.initElements();
+          uiManager.render();
+          dom.elements.selectbox.addEventListener("change", eventHandler.changeHandler);
+          
+          document.addEventListener("click", (event) => {
+            const opened = activeSelectboxList[activeSelectboxList.length - 1];
+            if (
+              activeSelectboxList.length > 0 &&
+              !event.target.closest(config.options.rootSelector) &&
+              opened?.element === dom.elements.root
+            ) {
+              this.closeActiveSelectbox();
+            }
+          });
+        },
+  
+        open() {
+          activeSelectboxList.push({ element: dom.elements.root, params: config.options });
+          dom.elements.root.classList.add(config.options.activeClass);
+        },
+  
+        close() {
+          dom.elements.root.classList.remove(config.options.activeClass);
+          activeSelectboxList.splice(activeSelectboxList.findIndex(item => item.element === dom.elements.root), 1);
+          dom.elements.newToggleButton.focus();
+        },
+  
+        select(index) {
+          const isSearchOption = dom.elements.newSelectOptions[index].classList.contains("option-search");
+          if (!isSearchOption && index !== stateManager.state.selectedIndex) {
+            uiManager.updateSelection(index);
+          }
+        },
+  
+        closeActiveSelectbox() {
+          const lastActiveSelectbox = activeSelectboxList[activeSelectboxList.length - 1]?.element;
+          if (lastActiveSelectbox) {
+            this.close(lastActiveSelectbox);
+          }
+        }
+      };
+  
+      publicAPI.init();
+      return publicAPI;
+    };
+  
+    return (root, params) => {
+      if (!utils.isElement(root)) {
+        throw new Error("root 값을 확인해주세요.");
+      }
+      return createInstance(root, params);
+    };
+  })();
+  
+  // Usage
+  // const selectbox = Selectbox(document.querySelector('.select-wrap'), { /* options */ });
+  (() => {
+    const selectbox1Selector = document.querySelector("#customSelectbox1");
+    const seletbox1 = Selectbox(selectbox1Selector, {
+      placeholder: true,
+      callback: {
+        onChange: (index, value) => {
+          // example
+                  if(value === 'a') {
+                  }
+              },
+      },
+    });
+    
+    const selectbox2Selector = document.querySelector("#customSelectbox2");
+    const seletbox2 = Selectbox(selectbox2Selector, {
+      placeholder: true,
+      callback: {
+        onChange: (index, value) => {
+          // example
+                  if(value === 'a') {
+                  }
+              },
+      },
+    });
+  })();
+  
+
+optionSelector		string	‘.sel’	
+newRootClassName		string	'select-box’	
+newListClassName		string	‘option-list’	
+newItemClassName		number	‘option-item’	
+newToggleClassName		number	‘sel-label’	
+activeClass		string	‘is-active’	
+placeholder		boolean	true	첫번째 option item이 placeholder인지 아닌지 체크
+duration		number	600	dropdown animation duration
+activeClass		string	‘is-active’	
+searchable		boolean	false	검색 가능하게 할 것 인지
+searchDefaultText		string	‘검색’	
+searchInputClassName		string	‘input’	
