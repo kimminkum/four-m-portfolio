@@ -6,7 +6,6 @@ import Topbtn from "./components/Topbtn";
 import Main from "./pages/Main";
 import { GlobalProvider, useGlobalContext } from "./query/GlobalContext";
 import styled from "styled-components";
-import SelectBox from "./components/SelectBox";
 import { Routes, Route } from "react-router-dom";
 
 const RelativeContainer = styled.div`
@@ -27,9 +26,6 @@ const App: React.FC = () => {
 };
 
 const InnerApp: React.FC = () => {
-  const { options, setOptions } = useGlobalContext(); // useGlobalContext 훅을 사용하여 options와 setOptions를 가져옵니다.
-  const [selectedOption, setSelectedOption] = React.useState("");
-
   return (
     <>
       <Header />
@@ -39,11 +35,6 @@ const InnerApp: React.FC = () => {
           <Route path="/home" element={<Main />} />
           <Route path="/about" element={<About />} />
         </Routes>
-        <SelectBox
-          options={options}
-          selectedOption={selectedOption}
-          onChange={setSelectedOption}
-        />
         <Topbtn />
       </RelativeContainer>
       <Footer />

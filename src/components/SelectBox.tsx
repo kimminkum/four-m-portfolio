@@ -13,7 +13,10 @@ const SelectBoxContainer = styled.div`
 `;
 
 const SelectedOption = styled.div`
-  padding: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
   border: 1px solid #ccc;
   cursor: pointer;
   background-color: #fff;
@@ -32,7 +35,10 @@ const OptionsContainer = styled.div<{ isOpen: boolean }>`
 `;
 
 const OptionItem = styled.div`
-  padding: 10px;
+  height: 40px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   &:hover {
     background-color: #f0f0f0;
