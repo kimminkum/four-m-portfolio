@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 interface AccordionProps {
@@ -21,9 +21,10 @@ const AccordionTitle = styled.div`
 `;
 
 const AccordionContent = styled.div<{ isOpen: boolean }>`
-  max-height: ${(props) => (props.isOpen ? "200px" : "0")};
+  max-height: ${(props) => (props.isOpen ? "1000px" : "0")};
+  opacity: ${(props) => (props.isOpen ? "1" : "0")};
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
   border: 1px solid #ccc;
   border-top: none;
   padding: ${(props) => (props.isOpen ? "10px" : "0 10px")};

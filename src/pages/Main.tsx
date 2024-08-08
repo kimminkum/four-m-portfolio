@@ -78,6 +78,7 @@ const Main: React.FC = () => {
           options={options}
           selectedOption={selectedOption}
           onChange={setSelectedOption}
+          placeholder="기본"
         />
         <h1>Main Component</h1>
         <AccordionContainer version={1} accordions={accordionData} />

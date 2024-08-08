@@ -5,6 +5,7 @@ interface SelectBoxProps {
   options: string[];
   selectedOption: string;
   onChange: (option: string) => void;
+  placeholder?: string;
 }
 
 const SelectBoxContainer = styled.div`
@@ -12,7 +13,7 @@ const SelectBoxContainer = styled.div`
   width: 200px;
 `;
 
-const SelectedOption = styled.div`
+const SelectedOption = styled.div<{ isPlaceholder: boolean }>`
   height: 40px;
   display: flex;
   align-items: center;
@@ -20,6 +21,7 @@ const SelectedOption = styled.div`
   border: 1px solid #ccc;
   cursor: pointer;
   background-color: #fff;
+  color: ${(props) => (props.isPlaceholder ? "#888" : "#000")};
 `;
 
 const OptionsContainer = styled.div<{ isOpen: boolean }>`
@@ -49,6 +51,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   options,
   selectedOption,
   onChange,
+  placeholder = "선택해주세요. 무엇을 선택 하세요.",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,10 +60,15 @@ const SelectBox: React.FC<SelectBoxProps> = ({
     setIsOpen(false);
   };
 
+  const isPlaceholder = !selectedOption;
+
   return (
     <SelectBoxContainer>
-      <SelectedOption onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption}
+      <SelectedOption
+        onClick={() => setIsOpen(!isOpen)}
+        isPlaceholder={isPlaceholder}
+      >
+        {isPlaceholder ? placeholder : selectedOption}
       </SelectedOption>
       <OptionsContainer isOpen={isOpen}>
         {options.map((option, index) => (
