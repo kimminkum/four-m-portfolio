@@ -10,12 +10,9 @@ const HeaderContainer = styled.div`
 
 const Header: React.FC = () => {
   return (
-    <>
-      <div>
-        <Nav></Nav>
-      </div>
-      <HeaderContainer></HeaderContainer>
-    </>
+    <HeaderContainer>
+      <Nav position="fixed"></Nav>
+    </HeaderContainer>
   );
 };
 

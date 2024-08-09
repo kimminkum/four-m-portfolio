@@ -17,6 +17,9 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
       color: inherit;
   }
+  li {
+    list-style: none;
+  }
 
   .flex {
     display: flex;

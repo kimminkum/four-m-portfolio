@@ -19,7 +19,8 @@ interface LinksProps {
 }
 
 const NavContainer = styled.nav<NavContainerProps>`
-  position: ${(props) => props.position || "static"};
+  position: ${(props) => props.position || "fixed"};
+  z-index: 9999;
   width: 100%;
   backdrop-filter: saturate(180%) blur(20px);
   background-color: ${(props) => (props.toggle ? "black" : "rgba(0,0,0,0.8)")};
@@ -123,22 +124,45 @@ const Links = styled.ul<LinksProps>`
   display: flex;
   width: 90%;
   justify-content: space-between;
-  align-items: center;
   font-weight: 400;
   font-size: 12px;
   color: white;
 
   li {
-    padding: 12px 12px;
+    padding: 0 12px;
+    display: flex;
+    border: 1px dashed red; // Changed border style to dashed
+    align-items: center;
+    min-width: fit-content;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
     opacity: 0.8;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background-color: #fff;
+      left: 0;
+      bottom: 0;
+      transition: all 0.4s linear;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
   }
 
   .link {
     color: ${(props) => props.theme.lightGray};
+
     opacity: 0.8;
     &:hover {
       opacity: 1;
-      transition: opacity 0.3s;
+      transition: opacity 0.4s;
     }
   }
 
@@ -148,13 +172,14 @@ const Links = styled.ul<LinksProps>`
     height: 100%;
     position: absolute;
     top: 48px;
-    font-size: 15px;
+    font-size: 16px;
     padding: 12px 0;
     top: ${(props) => (props.toggle ? "48px" : "-500px")};
     transition: all 1s cubic-bezier(0.32, 0.1, 0.24, 0.99);
 
     li {
       width: 100%;
+      padding: 12px 0;
       border-bottom: 1px solid ${(props) => props.theme.lightGray};
     }
   }

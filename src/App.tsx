@@ -1,6 +1,7 @@
 import React from "react";
 import About from "./pages/About";
 import Header from "./pages/Header";
+import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Topbtn from "./components/Topbtn";
 import Main from "./pages/Main";
@@ -15,6 +16,7 @@ const RelativeContainer = styled.div`
   width: 100vw;
   overflow-x: hidden;
   padding-bottom: 60px;
+  padding-top: 44px;
 `;
 
 const App: React.FC = () => {
@@ -32,7 +34,7 @@ const InnerApp: React.FC = () => {
       <RelativeContainer>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/home" element={<Main />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
         </Routes>
         <Topbtn />

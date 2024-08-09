@@ -11,33 +11,9 @@ import { SwiperSlide } from "swiper/react";
 import useIntersectionObserver from "../style/useIntersectionObserver";
 import Scroll from "../components/Scroll";
 import "swiper/css";
-
-const BtnBox = styled.div`
-  width: 60px;
-  position: relative;
-  top: 0;
-  margin: 0 auto;
-  background-color: #ccc;
-`;
-
-const Container = styled.div`
-  background-color: #15357e;
-`;
-
-const NoneBox = styled.div`
-  width: 100%;
-  height: 900px;
-  background-color: #15357e;
-`;
-const ScrollBox = styled.div`
-  width: 100%;
-  display: block;
-`;
-
-const SwiperSlide2 = styled.div`
-  width: 100%;
-  height: 300px;
-`;
+import { useGlobalContext } from "../query/GlobalContext";
+import SelectBox from "../components/SelectBox";
+import AccordionContainer from "../components/AccordionContainer";
 
 // Create a styled component with the animation
 const AnimatedDiv = styled.div`
@@ -84,6 +60,32 @@ const AnimatedDiv = styled.div`
     }
   }
 `;
+const BtnBox = styled.div`
+  width: 60px;
+  position: relative;
+  top: 0;
+  margin: 0 auto;
+  background-color: #ccc;
+`;
+
+const Container = styled.div`
+  background-color: #15357e;
+`;
+
+const NoneBox = styled.div`
+  width: 100%;
+  height: 900px;
+  background-color: #15357e;
+`;
+const ScrollBox = styled.div`
+  width: 100%;
+  display: block;
+`;
+
+const SwiperSlide2 = styled.div`
+  width: 100%;
+  height: 300px;
+`;
 
 const FlipFront = styled.div`
   position: absolute;
@@ -118,6 +120,24 @@ const FlipBack = styled.div`
 
 const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { options, setOptions } = useGlobalContext(); // useGlobalContext 훅을 사용하여 options와 setOptions를 가져옵니다.
+  const [selectedOption, setSelectedOption] = React.useState("");
+  useIntersectionObserver("[data-io]", {
+    root: null,
+    threshold: 0.1,
+    rootMargin: "10%",
+  });
+
+  const accordionData = [
+    { title: "Accordion 1", content: <div>Content 1</div> },
+    { title: "Accordion 2", content: <div>Content 2</div> },
+    { title: "Accordion 3", content: <div>Content 3</div> },
+  ];
+  const accordionData2 = [
+    { title: "Accordion 4", content: <div>Content max</div> },
+    { title: "Accordion 5", content: <div>Content hob</div> },
+    { title: "Accordion 6", content: <div>Content gat</div> },
+  ];
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -139,6 +159,17 @@ const Home: React.FC = () => {
 
   return (
     <Container>
+      <AnimatedDiv data-io="fade-in">
+        <SelectBox
+          options={options}
+          selectedOption={selectedOption}
+          onChange={setSelectedOption}
+          placeholder="기본"
+        />
+        <h1>Main Component</h1>
+        <AccordionContainer version={1} accordions={accordionData} />
+        <AccordionContainer version={2} accordions={accordionData} />
+      </AnimatedDiv>
       <div>
         <Tabs TabsBtn={["a", "x", "b"]} />
       </div>
