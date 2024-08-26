@@ -1,31 +1,71 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import useIntersectionObserver from "../style/useIntersectionObserver";
+import BoomTest from "../components/BoomTest"; // BoomTest 컴포넌트를 임포트합니다.
 
 const carAnimation = keyframes`
   0% {
     transform: translate3d(0, 0, 0);
   }
-  20% {
+  18% {
     transform: translate3d(400%, 0, 0);
   }
-  25% {
+  22% {
     transform: translate3d(400%, 0, 0) rotate(90deg);
   }
-  35% {
-    transform: translate3d(400%, 20vh, 0) rotate(90deg);
+  26% {
+    transform: translate3d(400%, calc(25vh - 11px), 0) rotate(90deg);
   }
-  50% {
-    transform: translate3d(400%, 20vh, 0) rotate(180deg);
+  30% {
+    transform: translate3d(400%, calc(25vh - 11px), 0) rotate(180deg);
   }
-  70% {
-    transform: translate3d(0, 20vh, 0) rotate(180deg);
+  48% {
+    transform: translate3d(0, calc(25vh - 11px), 0) rotate(180deg);
   }
-  75% {
-    transform: translate3d(0, 20vh, 0) rotate(90deg);
+  52% {
+    transform: translate3d(0, calc(25vh - 11px), 0) rotate(90deg);
+  }
+  56% {
+    transform: translate3d(0, calc(50vh - 22px), 0) rotate(90deg);
+  }
+  60% {
+    transform: translate3d(0, calc(50vh - 22px), 0) rotate(0deg);
+  }
+  78% {
+    transform: translate3d(400%, calc(50vh - 22px), 0) rotate(0deg);
+  }
+  82% {
+    transform: translate3d(400%, calc(50vh - 22px), 0) rotate(90deg);
+  }
+  86% {
+    transform: translate3d(400%, calc(75vh - 33px), 0) rotate(90deg);
+  }
+  92% {
+    transform: translate3d(400%, calc(75vh - 33px), 0) rotate(180deg);
   }
   100% {
-    transform: translate3d(500%, 100vh, 0) rotate(90deg);
+    transform: translate3d(-100%, calc(75vh - 33px), 0) rotate(180deg);
+  }
+`;
+
+const paintAnimation = keyframes`
+  0% {
+    width: 5%;
+    height: calc(25vh - 11px);
+  }
+  100% {
+    width: 100%;
+    height: calc(25vh - 11px);
+  }
+`;
+const paintAnimation2 = keyframes`
+  0% {
+    width: 20%;
+    height: calc(25vh - 11px);
+  }
+  100% {
+    width: 100%;
+    height: calc(25vh - 11px);
   }
 `;
 
@@ -62,12 +102,12 @@ const CleanerCharacter = styled.div`
   position: absolute;
   top: 0;
   width: 20%;
-  height: 20%;
-  background-color: #000;
+  height: calc(25vh - 11px);
+  background-color: #884f4f;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${carAnimation} 20s forwards linear;
+  animation: ${carAnimation} 12s forwards linear;
   animation-iteration-count: 1;
 
   span {
@@ -98,6 +138,18 @@ const CleanerCharacter = styled.div`
   }
 `;
 
+const Paintong = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5%;
+  height: 0;
+  background-color: black;
+  animation: ${paintAnimation} 2.4s forwards linear;
+  animation-iteration-count: 1;
+  z-index: 0; /* Car 요소 뒤에 배경이 나타나도록 설정 */
+`;
+
 const Main: React.FC = () => {
   return (
     <>
@@ -118,12 +170,14 @@ const Main: React.FC = () => {
         <AnimateBox backgroundColor="#cfbee0" boxShadowColor="207, 190, 224" />
         <AnimateBox backgroundColor="#d1e2ff" boxShadowColor="209, 226, 254" />
         <AnimateBox backgroundColor="#f5cbf0" boxShadowColor="240, 203, 240" />
+        <Paintong></Paintong>
         <CleanerCharacter>
           <span></span>
           <div className="eye1"></div>
           <div className="eye2"></div>
         </CleanerCharacter>
       </MainContainer>
+      <BoomTest /> {/* BoomTest 컴포넌트를 사용합니다. */}
     </>
   );
 };

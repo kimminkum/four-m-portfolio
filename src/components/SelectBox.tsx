@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface SelectBoxProps {
   options: string[];
-  selectedOption: string;
+  selectedOption?: string;
   onChange: (option: string) => void;
   placeholder?: string;
 }
@@ -60,7 +60,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
     setIsOpen(false);
   };
 
-  const isPlaceholder = !selectedOption;
+  const isPlaceholder = selectedOption == null || selectedOption.trim() === "";
 
   return (
     <SelectBoxContainer>
@@ -72,7 +72,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
       </SelectedOption>
       <OptionsContainer isOpen={isOpen}>
         {options.map((option, index) => (
-          <OptionItem key={index} onClick={() => handleOptionClick(option)}>
+          <OptionItem key={`${option}-${index}`} onClick={() => handleOptionClick(option)}>
             {option}
           </OptionItem>
         ))}
