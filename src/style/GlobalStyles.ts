@@ -92,6 +92,13 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   
+  button {
+    border: none;
+    width: 100%;
+    display: block;
+    background-color: inherit;
+    cursor: pointer;
+  }
 
   img {
     width: 100%;
