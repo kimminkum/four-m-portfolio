@@ -11,11 +11,11 @@ interface NavProps {
 
 interface NavContainerProps {
   position?: string;
-  toggle: boolean;
+  toggle: boolean | undefined;
 }
 
 interface LinksProps {
-  toggle: boolean;
+  toggle: boolean | undefined;
 }
 
 const NavContainer = styled.nav<NavContainerProps>`
@@ -191,7 +191,7 @@ const Nav: React.FC<NavProps> = ({ position }) => {
 
   return (
     <>
-      <NavContainer toggle={clicked} position={position}>
+      <NavContainer toggle={clicked ? true : undefined} position={position}>
         <Content>
           <MenuToggle onClick={onClick}>
             <FontAwesomeIcon icon={clicked ? faXmark : faBars} />
@@ -199,7 +199,7 @@ const Nav: React.FC<NavProps> = ({ position }) => {
           <Link to="/">
             <Logo />
           </Link>
-          <Links toggle={clicked}>
+          <Links toggle={clicked ? true : undefined}>
             {LinkItems.map((item, index) => (
               <li key={index}>
                 <Link className="link" to={item.url}>

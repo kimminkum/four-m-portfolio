@@ -97,6 +97,10 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     display: block;
   }
+
+  .slideauto {
+    width: auto;
+  }
 `;
 
 export default GlobalStyle;

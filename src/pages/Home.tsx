@@ -83,8 +83,9 @@ const ScrollBox = styled.div`
 `;
 
 const SwiperSlide2 = styled.div`
-  width: 100%;
+  width: 400px;
   height: 300px;
+  background-color: #f4f4f4;
 `;
 
 const FlipFront = styled.div`
@@ -151,12 +152,6 @@ const Home: React.FC = () => {
     console.log("hello World!");
   };
 
-  useIntersectionObserver("[data-io]", {
-    root: null,
-    threshold: 0.1,
-    rootMargin: "10%",
-  });
-
   return (
     <Container>
       <AnimatedDiv data-io="fade-in">
@@ -202,20 +197,40 @@ const Home: React.FC = () => {
       <Swiperbasic
         spaceBetween={20}
         autoplayDelay={3000}
-        slidesPerView={2}
+        slidesPerView={"auto"}
         indicator={true}
         paginationType="fraction"
         showNavigation={true}
         additionalModules={[]}
+        loop={true}
+        freemode={true}
       >
-        <SwiperSlide>
+        <SwiperSlide className="slideauto">
           <SwiperSlide2> Slide 1 </SwiperSlide2>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="slideauto">
           <SwiperSlide2> Slide 2 </SwiperSlide2>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="slideauto">
           <SwiperSlide2> Slide 3 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 4 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 5 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 6 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 7 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 8 </SwiperSlide2>
+        </SwiperSlide>
+        <SwiperSlide className="slideauto">
+          <SwiperSlide2> Slide 9 </SwiperSlide2>
         </SwiperSlide>
       </Swiperbasic>
       <BtnBox>

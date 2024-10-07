@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Topbtn from "./components/Topbtn";
 import Main from "./pages/Main";
-import { GlobalProvider, useGlobalContext } from "./query/GlobalContext";
+import { GlobalProvider } from "./query/GlobalContext";
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const RelativeContainer = styled.div`
   display: block;
   position: relative;
   height: auto;
-  width: 100vw;
+  width: 100%;
   overflow-x: hidden;
   padding-bottom: 60px;
   padding-top: 44px;

@@ -17,12 +17,14 @@ const SwiperContainer = styled.div<{ hasPagination: boolean }>`
 type SwiperbasicProps = {
   children: React.ReactNode;
   spaceBetween?: number;
-  slidesPerView?: number;
+  slidesPerView?: number | "auto";
   autoplayDelay?: number;
   indicator?: boolean;
+  loop?: boolean;
   paginationType?: "bullets" | "fraction" | "progressbar" | "custom" | null;
   showNavigation?: boolean;
   additionalModules?: any[];
+  freemode: boolean;
 };
 
 const Swiperbasic: React.FC<SwiperbasicProps> = ({
@@ -34,6 +36,8 @@ const Swiperbasic: React.FC<SwiperbasicProps> = ({
   paginationType = "bullets",
   showNavigation = true,
   additionalModules = [],
+  loop = true,
+  freemode = true,
 }) => {
   const modules = useMemo(() => {
     const baseModules = [Pagination, Scrollbar, Autoplay, ...additionalModules];
@@ -47,6 +51,7 @@ const Swiperbasic: React.FC<SwiperbasicProps> = ({
     () => ({
       spaceBetween,
       slidesPerView,
+      loop,
       autoplay: {
         delay: autoplayDelay,
       },
@@ -59,6 +64,7 @@ const Swiperbasic: React.FC<SwiperbasicProps> = ({
           : false,
       navigation: showNavigation,
       modules,
+      freemode,
     }),
     [
       spaceBetween,
