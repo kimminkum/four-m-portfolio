@@ -11,4 +11,24 @@ export const LinkItems = [
     title: "About",
     url: "/about",
   },
+  {
+    title: "SwiperPage",
+    url: "/swiperpage",
+  },
+  {
+    title: "AosPage",
+    url: "/aospage",
+  },
+  {
+    title: "AnimationPage",
+    url: "/animationpage",
+  },
+  {
+    title: "DataPage",
+    url: "/datapage",
+  },
+  {
+    title: "IntroducePage",
+    url: "/introducepage",
+  },
 ];

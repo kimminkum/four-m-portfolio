@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import useIntersectionObserver from "../style/useIntersectionObserver";
 
+// api 같은거 쓰기
+
 const DataPage: React.FC = () => {
   useIntersectionObserver("[data-io]", {
     root: null,
