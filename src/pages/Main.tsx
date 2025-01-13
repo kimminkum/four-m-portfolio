@@ -9,7 +9,7 @@ const PrologueBox = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(black, #222, #444);
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
 `;
@@ -19,7 +19,7 @@ const PrologueBox2 = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle, #222, #444, #a8a8a8);
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
 `;
@@ -29,7 +29,7 @@ const PrologueBox3 = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle closest-side at 10% 20%, #000, #333, #666);
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
 `;
@@ -39,12 +39,7 @@ const PrologueBox4 = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(
-    circle closest-corner at 10% 20%,
-    #000,
-    #444,
-    #888
-  );
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
 `;
@@ -54,12 +49,7 @@ const PrologueBox5 = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(
-    circle farthest-side at 10% 20%,
-    #000,
-    #444,
-    #888
-  );
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
 `;
@@ -69,14 +59,27 @@ const PrologueBox6 = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    #fff,
-    #aaa,
-    #161616
-  );
+  background: #161616;
   font-family: PretendardRegular, sans-serif, Arial;
   color: #fff;
+  transform-origin: 50% 50%; /* 회전 중심을 요소의 가운데로 설정 */
+`;
+const CirclePath = styled.div`
+  position: absolute;
+  right: 5%;
+  width: 28%;
+  top: 5%;
+
+  animation: rotate 20s linear infinite;
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 /*
@@ -109,7 +112,6 @@ const PrologueInner = styled.div`
   margin: 0 auto;
   box-sizing: border-box;
   padding: 0 20px;
-  overflow: hidden;
 `;
 
 const Main: React.FC = () => {
@@ -125,15 +127,37 @@ const Main: React.FC = () => {
         <PrologueInner>
           - 김민겸 Portfolio - svg 를 이용한 텍스트 마크 1 배웠으니 써먹고
           싶어서
+          <CirclePath>
+            <svg viewBox="0 0 300 300">
+              <path
+                id="cxcy"
+                d="M 150 150 m -100, 0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"
+                fill="transparent"
+                stroke="black"
+              />
+
+              <text width="300">
+                <textPath
+                  id="textPath"
+                  href="#cxcy"
+                  fill="white"
+                  startOffset="0"
+                >
+                  ฅ(۩۞ω۞۩) ฅ SVG PATH를 이용한 ฅ^•ﻌ•^ฅ 원, 곡선 텍스트
+                  (=^･ω･^)y＝ ฅ^•ﻌ•^ฅ
+                </textPath>
+              </text>
+            </svg>
+          </CirclePath>
         </PrologueInner>
       </PrologueBox>
-      <PrologueBox2>
-        <Scroll>
+      <Scroll>
+        <PrologueBox2>
           저는 이런이런 사람입니다. - 좌우로 열리는 오픈 스크롤 1번만
-        </Scroll>
-      </PrologueBox2>
+        </PrologueBox2>
+      </Scroll>
       <PrologueBox3>
-        <PrologueInner> 회사~내용 - aos </PrologueInner>
+        <PrologueInner> 회사~내용 - aos? carousel? </PrologueInner>
       </PrologueBox3>
       <PrologueBox4>
         <PrologueInner>

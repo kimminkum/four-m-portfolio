@@ -18,6 +18,7 @@ const OpenScroll = styled.div`
     background: var(--scroll-open-bg-color, #fff);
     position: absolute;
     top: 0;
+    z-index: 2;
   }
 
   &::after {
