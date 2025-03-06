@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.textBg};
-  color: ${({ theme }) => theme.textTxt};
+  background: ${({ theme }) => theme.background};
+  color: ${({ theme }) => theme.text};
   width: 100%;
   height: 100vh;
   display: flex;
