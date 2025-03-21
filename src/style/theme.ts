@@ -12,3 +12,10 @@ export const darkTheme = {
   textBg: "#ffffff", // 수정: text-bg → textBg
   textTxt: "#1e1e1e", // 수정: text-txt → textTxt
 };
+
+export const uiOn = {
+  display: "none",
+};
+export const uiOff = {
+  display: "block",
+};

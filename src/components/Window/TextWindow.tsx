@@ -6,18 +6,24 @@ const Container = styled.div`
   background: ${({ theme }) => theme.textBg};
   color: ${({ theme }) => theme.textTxt};
   width: 100%;
-  height: 100vh;
+  max-width: 768px;
+  position: absolute;
+  bottom: 0;
+  height: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 2px solid red;
 `;
 
-const MainWindow: React.FC = () => {
+// text 창 하단부부
+
+const TextWindow: React.FC = () => {
   return (
     <Container>
-      <h1>Main Window</h1>
+      <h1>Text Window</h1>
     </Container>
   );
 };
 
-export default MainWindow;
+export default TextWindow;

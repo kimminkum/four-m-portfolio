@@ -13,6 +13,8 @@ const Button = styled.button`
   margin: 10px;
 `;
 
+// 토글 진행 에 대한 설명 모달창으로로
+
 const HelpWindow: React.FC = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 

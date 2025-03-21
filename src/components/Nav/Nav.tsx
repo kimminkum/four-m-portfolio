@@ -25,7 +25,7 @@ const NavContainer = styled.nav<NavContainerProps>`
   backdrop-filter: saturate(180%) blur(20px);
   background-color: ${(props) => (props.toggle ? "black" : "rgba(0,0,0,0.8)")};
   color: ${(props) => props.theme.lightGray};
-  height: 44px;
+  height: 48px;
 
   @media screen and (max-width: 768px) {
     ${(props) => {
@@ -50,6 +50,7 @@ const Content = styled.div`
   max-width: 980px;
   margin: 0 auto;
   padding: 0 20px;
+  height: 48px;
 
   @media screen and (max-width: 768px) {
     height: 48px;
@@ -58,8 +59,8 @@ const Content = styled.div`
 `;
 
 const Logo = styled.div`
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfmI-9RO8bNvWYgcz_FZGjrqK6iqKv6ga4pQ&s");
   background-repeat: no-repeat;
   background-position: center;
@@ -80,8 +81,8 @@ const Logo = styled.div`
 `;
 
 const CartIcon = styled.div`
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   background-image: url("https://img.lovepik.com/free-png/20210928/lovepik-shopping-cart-icon-png-image_401708259_wh1200.png");
   background-repeat: no-repeat;
   background-size: cover;

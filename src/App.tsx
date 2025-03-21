@@ -16,6 +16,7 @@ import AosPage from "./pages/AosPage";
 import DataPage from "./pages/DataPage";
 import SwiperPage from "./pages/SwiperPage";
 import IntroducePage from "./pages/IntroducePage";
+import MainWindow from "./pages/MainWindow";
 
 const RelativeContainer = styled.div`
   display: block;
@@ -24,7 +25,7 @@ const RelativeContainer = styled.div`
   width: 100%;
   overflow-x: hidden;
   padding-bottom: 60px;
-  padding-top: 44px;
+  padding-top: 48px;
 `;
 
 const App: React.FC = () => {
@@ -49,6 +50,7 @@ const InnerApp: React.FC = () => {
           <Route path="/animationpage" element={<AnimationPage />} />
           <Route path="/datapage" element={<DataPage />} />
           <Route path="/introducepage" element={<IntroducePage />} />
+          <Route path="/MainWindow" element={<MainWindow />} />
         </Routes>
         <Topbtn />
       </RelativeContainer>

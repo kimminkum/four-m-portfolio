@@ -28,7 +28,7 @@ export const LinkItems = [
     url: "/datapage",
   },
   {
-    title: "IntroducePage",
-    url: "/introducepage",
+    title: "MainWindow",
+    url: "/MainWindow",
   },
 ];
