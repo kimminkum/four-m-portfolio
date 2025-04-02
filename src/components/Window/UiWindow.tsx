@@ -46,7 +46,14 @@ const UiWindow: React.FC<UiWindowProps> = ({
 }) => {
   return (
     <Container isUiMode={isUiMode} onClick={handleClick}>
-      <QuestionButton onClick={toggleUi}>?</QuestionButton>
+      <QuestionButton
+        onClick={(e) => {
+          e.stopPropagation(); // 클릭 이벤트 전파 방지
+          toggleUi();
+        }}
+      >
+        ?
+      </QuestionButton>
       <h1>UI Window</h1>
     </Container>
   );
