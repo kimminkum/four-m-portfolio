@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { textData } from "../../data/textData";
 
+interface TextWindowProps {
+  currentId: number;
+}
+
 const Container = styled.div`
   background: ${({ theme }) => theme.textBg};
   color: ${({ theme }) => theme.textTxt};
@@ -18,23 +22,18 @@ const Container = styled.div`
   z-index: 4;
 `;
 
+interface TextWindowProps {
+  currentId: number;
+  handleClick: () => void;
+}
+
 // text 창 하단부부
-
-const TextWindow: React.FC = () => {
-  const [currentId, setCurrentId] = useState(1);
-
-  const handleClick = () => {
-    if (currentId < textData.length) {
-      setCurrentId((prevId) => prevId + 1);
-    } else {
-      alert("마지막 텍스트입니다! 추가 이벤트 실행 가능");
-      // 원하는 다른 이벤트 실행 가능
-    }
-  };
-
+const TextWindow: React.FC<TextWindowProps> = ({ currentId, handleClick }) => {
   return (
     <Container onClick={handleClick}>
-      <h1>{textData.find((item) => item.id === currentId)?.text}</h1>
+      <h1>
+        {textData.find((item) => item.id === currentId)?.text || "데이터 없음"}
+      </h1>
     </Container>
   );
 };

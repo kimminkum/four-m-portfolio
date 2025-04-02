@@ -3,8 +3,10 @@ import React from "react";
 import styled from "styled-components";
 
 interface UiWindowProps {
+  currentId: number;
   isUiMode: boolean;
   toggleUi: () => void;
+  handleClick: () => void;
 }
 const Container = styled.div<{ isUiMode: boolean }>`
   display: block;
@@ -36,9 +38,14 @@ const QuestionButton = styled.button`
 
 // text 창 하단부부
 
-const UiWindow: React.FC<UiWindowProps> = ({ isUiMode, toggleUi }) => {
+const UiWindow: React.FC<UiWindowProps> = ({
+  isUiMode,
+  toggleUi,
+  currentId,
+  handleClick,
+}) => {
   return (
-    <Container isUiMode={isUiMode}>
+    <Container isUiMode={isUiMode} onClick={handleClick}>
       <QuestionButton onClick={toggleUi}>?</QuestionButton>
       <h1>UI Window</h1>
     </Container>
