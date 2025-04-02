@@ -6,6 +6,7 @@ import Button from "../Button"; // 동적 컴포넌트 예제
 
 interface CenterWindowProps {
   currentId: number;
+  textIndex: number;
 }
 
 const BtnBox = styled.div`
@@ -26,7 +27,10 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const CenterWindow: React.FC<CenterWindowProps> = ({ currentId }) => {
+const CenterWindow: React.FC<CenterWindowProps> = ({
+  currentId,
+  textIndex,
+}) => {
   const currentContent = contentData[currentId]; // ✅ 현재 ID에 해당하는 데이터 찾기
 
   if (!currentContent) return <Container>콘텐츠 없음</Container>; // ✅ 예외 처리
