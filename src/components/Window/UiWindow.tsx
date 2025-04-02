@@ -4,29 +4,42 @@ import styled from "styled-components";
 
 interface UiWindowProps {
   isUiMode: boolean;
+  toggleUi: () => void;
 }
-
 const Container = styled.div<{ isUiMode: boolean }>`
-  display: ${({ isUiMode }) => (isUiMode ? "block" : "none")};
+  display: block;
   position: absolute;
-  top: 50px;
-  right: 10px;
-  width: 300px;
-  height: 200px;
-  background: ${({ theme }) => theme.textBg};
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
   color: ${({ theme }) => theme.textTxt};
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  z-index: 100;
+  z-index: 3;
+`;
+
+const QuestionButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.textBg};
+  color: ${({ theme }) => theme.textTxt};
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
 `;
 
 // text 창 하단부부
 
-const UiWindow: React.FC<UiWindowProps> = ({ isUiMode }) => {
+const UiWindow: React.FC<UiWindowProps> = ({ isUiMode, toggleUi }) => {
   return (
     <Container isUiMode={isUiMode}>
+      <QuestionButton onClick={toggleUi}>?</QuestionButton>
       <h1>UI Window</h1>
     </Container>
   );

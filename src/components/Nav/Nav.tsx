@@ -132,7 +132,8 @@ const Links = styled.ul<LinksProps>`
   li {
     padding: 0 12px;
     display: flex;
-    border: 1px dashed red; // Changed border style to dashed
+    border: 1px solid #ddd; // Changed border style to dashed
+    border-collapse: collapse;
     align-items: center;
     min-width: fit-content;
     justify-content: center;

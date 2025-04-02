@@ -18,19 +18,7 @@ const Container = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
-`;
-const QuestionButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.textBg};
-  color: ${({ theme }) => theme.textTxt};
-  font-size: 20px;
-  cursor: pointer;
-  border: none;
+  overflow: hidden;
 `;
 
 const MainWindow: React.FC = () => {
@@ -38,11 +26,10 @@ const MainWindow: React.FC = () => {
 
   return (
     <Container>
-      <QuestionButton onClick={toggleUi}>?</QuestionButton>
       <CenterWindow />
-      <HelpWindow />
+      <HelpWindow toggleUi={toggleUi} isUiMode={isUiMode} />
       <TextWindow />
-      <UiWindow isUiMode={isUiMode} />
+      <UiWindow toggleUi={toggleUi} isUiMode={isUiMode} />
     </Container>
   );
 };
