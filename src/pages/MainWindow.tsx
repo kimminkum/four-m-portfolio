@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const MainWindow: React.FC = () => {
   const { isUiMode, toggleUi } = useTheme(); // UI 모드 상태와 토글 함수 가져오기
-  const [currentId, setCurrentId] = useState(0);
+  const [currentId, setCurrentId] = useState(1);
   const [isLast, setIsLast] = useState<boolean>(false);
   const maxTextLength = 10; // 한 번에 보여줄 최대 글자 수
   const [textIndex, setTextIndex] = useState(0);
@@ -35,6 +35,7 @@ const MainWindow: React.FC = () => {
       textData.find((item) => item.id === currentId)?.text || "";
     const textChunks =
       currentText.match(new RegExp(`.{1,${maxTextLength}}`, "g")) || [];
+    console.log(currentId);
 
     if (textIndex < textChunks.length - 1) {
       // ✅ 텍스트가 남아 있으면 textIndex 증가 (currentId 유지)

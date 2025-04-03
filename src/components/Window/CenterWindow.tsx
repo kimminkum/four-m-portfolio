@@ -4,6 +4,14 @@ import styled from "styled-components";
 import { contentData } from "../../data/contentData";
 import Button from "../Button"; // 동적 컴포넌트 예제
 
+interface ContentItem {
+  id: number;
+  type: "image" | "component";
+  src?: string; // 이미지 타입일 경우
+  alt?: string; // 이미지 타입일 경우
+  component?: React.FC; // 컴포넌트 타입일 경우
+}
+
 interface CenterWindowProps {
   currentId: number;
   textIndex: number;
@@ -31,7 +39,10 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
   currentId,
   textIndex,
 }) => {
-  const currentContent = contentData[currentId]; // ✅ 현재 ID에 해당하는 데이터 찾기
+  // ✅ 현재 ID에 해당하는 데이터 찾기 (find 방식)
+  const currentContent: ContentItem | undefined = contentData.find(
+    (item) => item.id === currentId
+  ) as ContentItem;
 
   if (!currentContent) return <Container>콘텐츠 없음</Container>; // ✅ 예외 처리
 
@@ -41,8 +52,12 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
 
   return (
     <Container>
-      {currentContent.type === "image" && (
-        <img src={currentContent.src} alt={currentContent.alt} width="100%" />
+      {currentContent.type === "image" && currentContent.src && (
+        <img
+          src={currentContent.src}
+          alt={currentContent.alt || "이미지"}
+          width="100%"
+        />
       )}
       {currentContent.type === "component" && (
         <BtnBox>
