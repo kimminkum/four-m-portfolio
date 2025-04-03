@@ -7,9 +7,10 @@ import Button from "../Button"; // 동적 컴포넌트 예제
 interface ContentItem {
   id: number;
   type: "image" | "component";
-  src?: string; // 이미지 타입일 경우
-  alt?: string; // 이미지 타입일 경우
-  component?: React.FC; // 컴포넌트 타입일 경우
+  src?: string;
+  alt?: string;
+  component?: React.ElementType; // ✅ React.FC<any> 대신 ElementType 사용
+  props?: Record<string, any>;
 }
 
 interface CenterWindowProps {
@@ -42,13 +43,9 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
   // ✅ 현재 ID에 해당하는 데이터 찾기 (find 방식)
   const currentContent: ContentItem | undefined = contentData.find(
     (item) => item.id === currentId
-  ) as ContentItem;
+  );
 
   if (!currentContent) return <Container>콘텐츠 없음</Container>; // ✅ 예외 처리
-
-  const handleClick = () => {
-    console.log("hello World!");
-  };
 
   return (
     <Container>
@@ -59,12 +56,8 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
           width="100%"
         />
       )}
-      {currentContent.type === "component" && (
-        <BtnBox>
-          <Button onClick={handleClick} type="button" className="mack">
-            hello
-          </Button>
-        </BtnBox>
+      {currentContent.type === "component" && currentContent.component && (
+        <currentContent.component {...currentContent.props} />
       )}
     </Container>
   );

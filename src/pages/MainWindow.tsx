@@ -44,7 +44,7 @@ const MainWindow: React.FC = () => {
       // ✅ 텍스트의 모든 조각을 출력했으면, textIndex 초기화 & currentId 증가
       setTextIndex(0);
       setCurrentId((prevId) =>
-        prevId < textData.length - 1 ? prevId + 1 : prevId
+        prevId < textData.length ? prevId + 1 : prevId
       );
     }
   };
