@@ -2,7 +2,8 @@
 import React from "react";
 import styled from "styled-components";
 import { contentData } from "../../data/contentData";
-import Button from "../Button"; // 동적 컴포넌트 예제
+import { motion, AnimatePresence } from "framer-motion";
+
 
 interface ContentItem {
   id: number;
@@ -17,14 +18,6 @@ interface CenterWindowProps {
   currentId: number;
   textIndex: number;
 }
-
-const BtnBox = styled.div`
-  width: 60px;
-  position: relative;
-  top: 0;
-  margin: 0 auto;
-  background-color: #ccc;
-`;
 
 const Container = styled.div`
   background: ${({ theme }) => theme.textBg};
@@ -48,18 +41,28 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
   if (!currentContent) return <Container>콘텐츠 없음</Container>; // ✅ 예외 처리
 
   return (
-    <Container>
-      {currentContent.type === "image" && currentContent.src && (
-        <img
-          src={currentContent.src}
-          alt={currentContent.alt || "이미지"}
-          width="100%"
-        />
-      )}
-      {currentContent.type === "component" && currentContent.component && (
-        <currentContent.component {...currentContent.props} />
-      )}
-    </Container>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={`${currentId}-${textIndex}`}
+        initial = {{opacity: 0, y: 10}}
+        animate = {{opacity: 1, y: 0}}
+        exit = {{opacity: 0, y: -10}}
+        transition = {{ duration: 0.3 }}
+      >
+        <Container>
+          {currentContent.type === "image" && currentContent.src && (
+            <img
+              src={currentContent.src}
+              alt={currentContent.alt || "이미지"}
+              width="100%"
+            />
+          )}
+          {currentContent.type === "component" && currentContent.component && (
+            <currentContent.component {...currentContent.props} />
+          )}
+        </Container>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

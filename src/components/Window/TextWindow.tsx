@@ -1,7 +1,8 @@
 // src/pages/MainWindow.tsx
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { textData } from "../../data/textData";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TextWindowProps {
   currentId: number;
@@ -37,9 +38,19 @@ const TextWindow: React.FC<TextWindowProps> = ({
     currentText.match(new RegExp(`.{1,${maxTextLength}}`, "g")) || [];
 
   return (
-    <Container onClick={handleClick}>
-      <h1>{textChunks[textIndex] || "데이터 없음"}</h1>
-    </Container>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={`${currentId}-${textIndex}`}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        <Container onClick={handleClick}>
+          <h1>{textChunks[textIndex] || "데이터 없음"}</h1>
+        </Container>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
