@@ -2,6 +2,7 @@ import React from "react"; // JSX 사용을 위해 추가
 import Btn from "../components/Button";
 import SwiperComponent from "../components/Swiperbasic";
 import Accordion from "../components/Accordion";
+import Resume from "../components/Resume";
 
 interface ContentItem {
   id: number;
@@ -15,29 +16,34 @@ interface ContentItem {
 export const contentData: ContentItem[] = [
   {
     id: 1,
+    type:"component",
+    component: Resume,
+  },
+  {
+    id: 2,
     type: "image",
     src: "image1.jpg",
     alt: "첫 번째 이미지",
   },
   {
-    id: 2,
+    id: 3,
     type: "component",
     component: Btn,
     props: { children: "Click Me!", onClick: () => alert("버튼 클릭됨") },
   },
   {
-    id: 3,
+    id: 4,
     type: "component",
     component: SwiperComponent,
     props: {
       slides: [
-        { src: "slide1.jpg", alt: "슬라이드1" },
-        { src: "slide2.jpg", alt: "슬라이드2" },
+        { src: "", alt: "슬라이드1" },
+        { src: "", alt: "슬라이드2" },
       ],
     },
   },
   {
-    id: 4,
+    id: 5,
     type: "component",
     component: Accordion,
     props: {
