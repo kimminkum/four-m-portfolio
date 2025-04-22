@@ -51,19 +51,18 @@ const MainWindow: React.FC = () => {
 
   return (
     <Container>
-      <CenterWindow currentId={currentId} textIndex={textIndex} />
+      <CenterWindow
+        currentId={currentId}
+        textIndex={textIndex}
+        handleClick={handleClick}
+      />
       <HelpWindow toggleUi={toggleUi} isUiMode={isUiMode} />
       <TextWindow
         currentId={currentId}
         handleClick={handleClick}
         textIndex={textIndex}
       />
-      <UiWindow
-        toggleUi={toggleUi}
-        isUiMode={isUiMode}
-        currentId={currentId}
-        handleClick={handleClick}
-      />
+      <UiWindow toggleUi={toggleUi} isUiMode={isUiMode} />
 
       {isLast && <div> over </div>}
     </Container>

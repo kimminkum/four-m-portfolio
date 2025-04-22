@@ -25,6 +25,14 @@ const Container = styled.div`
   z-index: 4;
 `;
 
+const MotionContainer = styled(motion.div)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+`;
+
 // text 창 하단부부
 const TextWindow: React.FC<TextWindowProps> = ({
   currentId,
@@ -38,19 +46,19 @@ const TextWindow: React.FC<TextWindowProps> = ({
     currentText.match(new RegExp(`.{1,${maxTextLength}}`, "g")) || [];
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={`${currentId}-${textIndex}`}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-      >
-        <Container onClick={handleClick}>
+    <Container onClick={handleClick}>
+      <AnimatePresence mode="wait">
+        <MotionContainer
+          key={`${currentId}-${textIndex}`}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
           <h1>{textChunks[textIndex] || "데이터 없음"}</h1>
-        </Container>
-      </motion.div>
-    </AnimatePresence>
+        </MotionContainer>
+      </AnimatePresence>
+    </Container>
   );
 };
 
