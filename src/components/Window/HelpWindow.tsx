@@ -6,6 +6,8 @@ import styled from "styled-components";
 interface HelpWindowProps {
   toggleUi: () => void;
   isUiMode: boolean;
+  typingSpeed: number;
+  setTypingSpeed: React.Dispatch<React.SetStateAction<number>>; // 🔥 이걸로 교체
 }
 
 const Container = styled.div<{ isUiMode: boolean }>`
@@ -49,7 +51,12 @@ const CloseButton = styled.button`
 
 // 토글 진행 에 대한 설명 모달창으로로
 
-const HelpWindow: React.FC<HelpWindowProps> = ({ isUiMode, toggleUi }) => {
+const HelpWindow: React.FC<HelpWindowProps> = ({
+  isUiMode,
+  toggleUi,
+  typingSpeed,
+  setTypingSpeed,
+}) => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
@@ -57,6 +64,15 @@ const HelpWindow: React.FC<HelpWindowProps> = ({ isUiMode, toggleUi }) => {
       <Button onClick={toggleTheme}>
         {isDarkMode ? "Light Mode" : "Dark Mode"}
       </Button>
+
+      <input
+        type="range"
+        min={10}
+        max={100}
+        step={10}
+        value={typingSpeed}
+        onChange={(e) => setTypingSpeed(Number(e.target.value))}
+      />
 
       <CloseButton onClick={toggleUi}>×</CloseButton>
     </Container>
