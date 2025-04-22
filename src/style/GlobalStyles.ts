@@ -41,6 +41,21 @@ const GlobalStyle = createGlobalStyle`
     letter-spacing: -0.02em;
     overflow: hidden;
   }
+
+  .font-16 {
+    font-size: clamp(12px, calc(16 / 768 * 100%), 16px);
+  }
+  .font-20 {
+    font-size: clamp(14px, calc(20 / 768 * 100%), 20px);
+  }
+  .font-24 {
+    font-size: clamp(16px, calc(24 / 768 * 100%), 24px);
+  }
+  .font-32 {
+    font-size: clamp(20px, calc(32 / 768 * 100%), 32px);
+  }
+
+
   .swiper{
     overflow: visible;
   }

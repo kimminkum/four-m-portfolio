@@ -54,10 +54,10 @@ const CenterWindow: React.FC<CenterWindowProps> = ({
       <AnimatePresence mode="wait">
         <MotionContainer
           key={`${currentId}-${textIndex}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 30, rotateZ: -2 }}
+          animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+          exit={{ opacity: 0, y: -20, rotateZ: 3 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
         >
           {currentContent.type === "image" && currentContent.src && (
             <img
